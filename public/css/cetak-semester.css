@@ -1,0 +1,51 @@
+/* Cetak nilai semester: satu kelas = satu lembar, font tabel 12 pt. Ukuran kertas diatur lewat --pw/--ph (js). */
+:root{--pw:210mm;--ph:297mm;--pm:8mm}
+*{box-sizing:border-box}
+body{margin:0;background:#cfd5de;color:#000;font-family:Arial,"Liberation Sans","Helvetica Neue",Helvetica,sans-serif}
+
+.bar{position:sticky;top:0;z-index:5;background:#152a45;color:#fff;padding:8px 14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;font:14px system-ui,sans-serif}
+.bar label{display:flex;gap:6px;align-items:center}
+.bar select,.bar button{font:inherit;padding:5px 8px;border-radius:6px;border:1px solid #c6cdd7}
+.bar button{background:#1f5fbf;color:#fff;border-color:#1f5fbf;cursor:pointer}
+.bar small{opacity:.8;font-size:12px}.bar .sp{flex:1}.bar a{color:#fff}
+.warn{background:#fde8e5;color:#7a1f14;padding:8px 14px;font:14px/1.4 system-ui,sans-serif}
+
+#sheets{padding:14px 0}
+.sheet{--rp:.5mm;--cp:1.2mm;--lh:1.15;width:var(--pw);height:calc(var(--ph) - 1mm);padding:var(--pm);background:#fff;margin:0 auto 14px;break-after:page;page-break-after:always}
+.sheet:last-child{break-after:auto;page-break-after:auto}
+.fit{height:calc(var(--ph) - 2 * var(--pm) - 1mm);overflow:hidden}
+
+.ttl{display:flex;justify-content:space-between;align-items:baseline;font-size:14pt;font-weight:700;margin:0 0 2mm;line-height:1.2}
+table.nt{width:100%;border-collapse:collapse;font-size:12pt;line-height:var(--lh)}
+.nt thead{display:table-header-group}
+.nt th,.nt td{border:.25mm solid #000;padding:var(--rp) calc(var(--cp) + .6mm);text-align:center;white-space:nowrap}
+.nt th{background:#e8ecf2;font-weight:700}
+/* kolom nama selebar isinya (tidak melebar); sisa lebar kertas dibagi ke kolom nilai agar lega */
+.nt .nm{text-align:left;width:1%}
+.nt .no{width:1%;min-width:9mm}
+.nt .v{min-width:14mm}
+/* cadangan: bila nama terlalu panjang untuk satu baris (mis. kertas A4), nama boleh turun baris */
+.sheet.wrap .nt .nm{white-space:normal;width:auto}
+.sheet.wrap .nt .v{width:1%}
+.nt tr.rata td{font-weight:700;background:#f1f3f7}
+
+@media screen{.sheet{box-shadow:0 2px 10px #0004}.sheet.over{outline:3px solid #c0392b}}
+@media print{
+  body{background:#fff}
+  .noprint{display:none!important}
+  #sheets{padding:0}
+  .sheet{margin:0;box-shadow:none}
+}
+
+/* panel urutan kolom (tidak ikut tercetak) */
+.urut{background:#fff;color:#1a2332;padding:8px 14px;font:14px/1.45 system-ui,sans-serif;border-bottom:1px solid #c6cdd7}
+.urut summary{cursor:pointer;font-weight:600}
+.urut p{margin:6px 0;color:#5a6676;font-size:13px}
+.urut-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0}
+.urut-row>b{min-width:92px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.chip{padding:4px 10px;border:1px solid #9fb3cf;border-radius:6px;background:#e8f0fc;cursor:grab;user-select:none;font-size:13px;font-weight:600}
+.chip.drag{opacity:.4}.chip:focus{outline:2px solid #1f5fbf}
+.urut button{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid #1f5fbf;background:#1f5fbf;color:#fff;cursor:pointer}
+.urut button.s{background:#fff;color:#1f5fbf}
+.urut .st{font-size:12px;color:#5a6676}
